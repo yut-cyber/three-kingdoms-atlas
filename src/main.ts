@@ -27,6 +27,7 @@ const playBtn = $<HTMLButtonElement>('#play');
 const hintEl = $<HTMLElement>('#hint');
 const eraBadgeEl = $<HTMLElement>('#era-badge');
 const scaleEl = $<HTMLElement>('#scale');
+const warStripEl = $<HTMLElement>('#war-strip');
 const dockToggle = $<HTMLButtonElement>('#dock-toggle');
 
 type Filter = 'all' | EventFaction;
@@ -204,6 +205,11 @@ function renderDetail(ev: HistoricalEvent): void {
     </div>
     <h3>${ev.title}</h3>
     <div class="dt-place">${ev.place}</div>
+    ${
+      ev.attacker && ev.defender
+        ? `<div class="dt-war"><span class="dw-side">攻</span>${ev.attacker}<span class="dw-arrow">→</span><span class="dw-side">守</span>${ev.defender}</div>`
+        : ''
+    }
     <div class="dt-divider"></div>
     <p class="dt-summary">${ev.summary}</p>
     <div class="dt-result"><span>结 果</span><p>${ev.result}</p></div>
@@ -246,6 +252,42 @@ function jumpTo(ev: HistoricalEvent): void {
   }
 }
 
+/* ------------------------------------------------------------------ 本年战事 */
+
+/** 当前年份的出兵/对阵，依据史书所载攻守双方 */
+function renderWarStrip(year: number): void {
+  const todays = EVENTS.filter((ev) => ev.year === year);
+  const chips: string[] = [];
+
+  if (todays.length) {
+    for (const ev of todays) {
+      const war =
+        ev.attacker && ev.defender
+          ? `<span class="war-side">${ev.attacker}</span><span class="war-arrow">攻</span><span class="war-side">${ev.defender}</span>`
+          : `<span class="war-side">${ev.place}</span>`;
+      chips.push(
+        `<button class="war-chip" data-id="${ev.id}" title="${ev.place} · ${ev.result}">` +
+          `<span class="war-title">${ev.title}</span>${war}</button>`,
+      );
+    }
+  } else {
+    const prev = [...EVENTS].reverse().find((ev) => ev.year <= year);
+    chips.push(
+      `<span class="war-none">本年无大战${
+        prev ? ` · 上一役 ${prev.year} 年 ${prev.title}` : ''
+      }</span>`,
+    );
+  }
+
+  warStripEl.innerHTML = `<span class="war-label">战事</span><div class="war-body">${chips.join('')}</div>`;
+  for (const node of warStripEl.querySelectorAll<HTMLElement>('.war-chip')) {
+    node.addEventListener('click', () => {
+      const id = node.dataset.id;
+      if (id) selectEvent(id);
+    });
+  }
+}
+
 /* ------------------------------------------------------------------ year */
 
 function setYear(year: number): void {
@@ -259,6 +301,7 @@ function setYear(year: number): void {
 
   const chapter = chapterOf(next);
   eraBadgeEl.textContent = chapter.label;
+  renderWarStrip(next);
   for (const btn of chaptersEl.querySelectorAll<HTMLElement>('.chapter-btn')) {
     const label = btn.textContent ?? '';
     btn.classList.toggle('on', label === chapter.label);

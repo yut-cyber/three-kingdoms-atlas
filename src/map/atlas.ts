@@ -1,5 +1,6 @@
 import {
   CITIES,
+  ERA_LEADERS,
   FACTIONS,
   LAND,
   MOUNTAINS,
@@ -111,6 +112,7 @@ export class AtlasMap {
   private world: SVGGElement;
   private regionFills = new Map<string, SVGPathElement>();
   private pins = new Map<string, SVGGElement>();
+  private leaderGroups: { year: number; g: SVGGElement }[] = [];
   private routeLayer: SVGGElement;
   private selectedId: string | null = null;
   private zoom = 1;
@@ -135,6 +137,7 @@ export class AtlasMap {
     this.buildRivers();
     this.buildRegionBorders();
     this.buildRegionLabels();
+    this.buildLeaders();
     this.buildCities();
     this.routeLayer = svgEl('g', { class: 'route-layer' });
     this.world.append(this.routeLayer);
@@ -444,6 +447,26 @@ export class AtlasMap {
     this.world.append(g);
   }
 
+  /** 势力主导者：随年份显示「谁在领导」 */
+  private buildLeaders(): void {
+    for (const era of ERA_LEADERS) {
+      const g = svgEl('g', { class: 'leader-layer' });
+      for (const leader of era.items) {
+        const [x, y] = this.proj.project(leader.at);
+        const text = svgEl('text', {
+          x,
+          y,
+          class: 'leader-label',
+          fill: factionColor(leader.faction),
+        });
+        text.textContent = leader.name;
+        g.append(text);
+      }
+      this.world.append(g);
+      this.leaderGroups.push({ year: era.year, g });
+    }
+  }
+
   private buildCities(): void {
     const g = svgEl('g', { class: 'cities' });
     for (const city of [...CITIES].sort((a, b) => a.tier - b.tier)) {
@@ -517,6 +540,11 @@ export class AtlasMap {
       if (!owner) continue;
       path.setAttribute('fill', factionColor(owner));
       path.setAttribute('fill-opacity', owner === 'han' ? '0.14' : '0.7');
+    }
+
+    const leaders = [...this.leaderGroups].reverse().find((item) => item.year <= year) ?? this.leaderGroups[0];
+    for (const item of this.leaderGroups) {
+      item.g.classList.toggle('is-on', item === leaders);
     }
 
     for (const ev of EVENTS) {

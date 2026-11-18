@@ -527,6 +527,108 @@ export interface TimelineChapter {
   label: string;
 }
 
+export interface EraLeader {
+  name: string;
+  at: LonLat;
+  faction: OwnerId;
+}
+
+/** 各时期主要割据者，用于在地图上标出「谁在领导」 */
+export const ERA_LEADERS: { year: number; items: EraLeader[] }[] = [
+  {
+    year: 184,
+    items: [{ name: '汉灵帝', at: [112.6, 35.4], faction: 'han' }],
+  },
+  {
+    year: 190,
+    items: [
+      { name: '董卓', at: [108.4, 34.5], faction: 'qun' },
+      { name: '袁绍', at: [116.1, 38.3], faction: 'qun' },
+      { name: '曹操', at: [115.2, 35.5], faction: 'qun' },
+      { name: '刘表', at: [111.6, 30.9], faction: 'qun' },
+      { name: '刘焉', at: [103.3, 30.2], faction: 'qun' },
+      { name: '袁术', at: [117.2, 32.6], faction: 'qun' },
+    ],
+  },
+  {
+    year: 196,
+    items: [
+      { name: '曹操', at: [114.0, 33.9], faction: 'cao' },
+      { name: '袁绍', at: [116.3, 38.4], faction: 'qun' },
+      { name: '刘表', at: [111.4, 30.6], faction: 'qun' },
+      { name: '刘璋', at: [103.2, 29.9], faction: 'qun' },
+      { name: '孙策', at: [119.2, 30.6], faction: 'sun' },
+      { name: '吕布', at: [118.9, 34.8], faction: 'qun' },
+      { name: '马腾', at: [102.6, 36.6], faction: 'qun' },
+      { name: '公孙度', at: [123.2, 41.6], faction: 'qun' },
+    ],
+  },
+  {
+    year: 200,
+    items: [
+      { name: '曹操', at: [114.0, 34.0], faction: 'cao' },
+      { name: '袁绍', at: [116.4, 38.4], faction: 'qun' },
+      { name: '刘表', at: [111.4, 30.6], faction: 'qun' },
+      { name: '刘璋', at: [103.2, 29.9], faction: 'qun' },
+      { name: '孙权', at: [119.6, 30.4], faction: 'sun' },
+      { name: '张鲁', at: [106.9, 33.6], faction: 'qun' },
+      { name: '马腾', at: [102.6, 36.6], faction: 'qun' },
+    ],
+  },
+  {
+    year: 208,
+    items: [
+      { name: '曹操', at: [115.3, 36.9], faction: 'cao' },
+      { name: '孙权', at: [119.7, 30.2], faction: 'sun' },
+      { name: '刘备', at: [112.4, 29.4], faction: 'liu' },
+      { name: '刘璋', at: [103.0, 29.9], faction: 'qun' },
+      { name: '张鲁', at: [106.9, 33.6], faction: 'qun' },
+      { name: '马超', at: [102.6, 36.6], faction: 'qun' },
+    ],
+  },
+  {
+    year: 219,
+    items: [
+      { name: '曹操', at: [114.4, 35.9], faction: 'cao' },
+      { name: '刘备', at: [103.6, 30.4], faction: 'shu' },
+      { name: '孙权', at: [119.4, 30.2], faction: 'wu' },
+      { name: '士燮', at: [107.8, 22.6], faction: 'qun' },
+    ],
+  },
+  {
+    year: 234,
+    items: [
+      { name: '曹叡', at: [112.4, 35.2], faction: 'wei' },
+      { name: '刘禅', at: [103.4, 30.0], faction: 'shu' },
+      { name: '孙权', at: [119.2, 30.0], faction: 'wu' },
+      { name: '公孙渊', at: [123.2, 41.6], faction: 'qun' },
+    ],
+  },
+  {
+    year: 249,
+    items: [
+      { name: '曹芳', at: [112.4, 35.2], faction: 'wei' },
+      { name: '刘禅', at: [103.4, 30.0], faction: 'shu' },
+      { name: '孙权', at: [119.2, 30.0], faction: 'wu' },
+    ],
+  },
+  {
+    year: 263,
+    items: [
+      { name: '曹奂', at: [112.4, 35.2], faction: 'wei' },
+      { name: '刘禅', at: [103.4, 30.0], faction: 'shu' },
+      { name: '孙休', at: [119.2, 30.0], faction: 'wu' },
+    ],
+  },
+  {
+    year: 280,
+    items: [
+      { name: '司马炎', at: [112.4, 35.2], faction: 'jin' },
+      { name: '孙皓', at: [119.2, 30.0], faction: 'wu' },
+    ],
+  },
+];
+
 /** 时间轴章节 */
 export const CHAPTERS: TimelineChapter[] = [
   { from: 184, to: 189, label: '汉室倾颓' },

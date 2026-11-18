@@ -16,6 +16,10 @@ export interface HistoricalEvent {
   figures: string[];
   summary: string;
   result: string;
+  /** 进攻方（史书所载出兵一方） */
+  attacker?: string;
+  /** 防守方 */
+  defender?: string;
   /** 行军路线（城池名序列） */
   route?: string[];
 }
@@ -31,6 +35,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['qun', 'han'],
     importance: 3,
     figures: ['张角', '张宝', '张梁', '皇甫嵩', '曹操'],
+    attacker: '张角（黄巾）',
+    defender: '皇甫嵩（汉军）',
     summary:
       '张角以「苍天已死，黄天当立」为号，聚众数十万，八州并起。汉廷急发天下精兵，曹操、刘备、孙坚皆由此登上历史舞台。',
     result: '起义于同年被镇压，但州郡割据之势已成，东汉统治根基动摇。',
@@ -45,6 +51,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['qun', 'han'],
     importance: 3,
     figures: ['董卓', '何进', '袁绍', '吕布'],
+    attacker: '董卓（西凉）',
+    defender: '汉廷',
     summary:
       '大将军何进谋诛宦官反被所杀，并州牧董卓率西凉劲卒入洛阳，废少帝、立献帝，自擅朝政，天下由此大乱。',
     result: '关东州郡共推袁绍为盟主，起兵讨董，群雄割据正式开场。',
@@ -59,6 +67,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['qun'],
     importance: 3,
     figures: ['袁绍', '曹操', '孙坚', '董卓'],
+    attacker: '袁绍（关东联军）',
+    defender: '董卓',
     summary:
       '关东诸侯会盟酸枣，分屯要冲。曹操孤军追击于荥阳大败，孙坚却破吕布、入洛阳，得传国玉玺。',
     result: '联军貌合神离，董卓挟献帝西迁长安，焚毁洛阳宫室。',
@@ -74,6 +84,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['qun'],
     importance: 2,
     figures: ['袁绍', '麴义', '公孙瓒'],
+    attacker: '公孙瓒',
+    defender: '袁绍',
     summary:
       '公孙瓒以白马义从南下冀州，袁绍部将麴义以八百先登死士伏于界桥，强弩齐发，大破骑兵。',
     result: '袁绍稳固冀州，公孙瓒退守幽州，河北双雄格局初成。',
@@ -88,6 +100,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['qun'],
     importance: 2,
     figures: ['王允', '吕布', '董卓'],
+    attacker: '李傕 · 郭汜',
+    defender: '王允 · 吕布',
     summary:
       '司徒王允联结吕布，于未央宫北掖门刺杀董卓。长安百姓歌舞于道，然凉州旧部李傕、郭汜随即反攻。',
     result: '王允被杀，关中陷入李傕郭汜之乱，天子颠沛。',
@@ -102,6 +116,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['qun'],
     importance: 2,
     figures: ['曹操', '陶谦', '刘备'],
+    attacker: '曹操',
+    defender: '陶谦',
     summary:
       '曹操以父仇为名东征陶谦，连下十余城，屠戮甚众。刘备率数千兵驰援，陶谦表为豫州刺史。',
     result: '徐州残破，刘备借机立足，曹操则背上屠城恶名。',
@@ -117,6 +133,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['qun'],
     importance: 2,
     figures: ['曹操', '吕布', '陈宫', '荀彧'],
+    attacker: '吕布 · 陈宫',
+    defender: '曹操',
     summary:
       '陈宫、张邈迎吕布入兖州，郡县皆应。曹操回军，与吕布相持濮阳，几为所困，赖荀彧、程昱保全三城。',
     result: '曹操苦战两年复取兖州，吕布东奔徐州。',
@@ -131,6 +149,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['sun', 'qun'],
     importance: 2,
     figures: ['孙策', '周瑜', '刘繇'],
+    attacker: '孙策',
+    defender: '刘繇',
     summary:
       '孙策以父旧部千余人渡江，得周瑜相助，转斗千里，破刘繇于曲阿，江东豪杰纷纷归附。',
     result: '孙氏据有吴会，为日后东吴基业奠基。',
@@ -161,6 +181,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['qun'],
     importance: 2,
     figures: ['袁术', '孙策', '吕布'],
+    attacker: '曹操',
+    defender: '袁术',
     summary:
       '袁术据淮南称帝，建号仲氏。孙策与之决裂，吕布、曹操相继讨伐，江淮士民离心。',
     result: '袁术众叛亲离，病死于寿春，淮南归曹操所有。',
@@ -175,6 +197,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['cao', 'qun'],
     importance: 2,
     figures: ['曹操', '吕布', '刘备', '陈宫'],
+    attacker: '曹操',
+    defender: '吕布',
     summary:
       '曹操东征吕布，引沂、泗之水灌下邳。吕布部将宋宪、魏续缚陈宫出降，吕布被缢杀于白门楼。',
     result: '徐州平定，刘备随曹操还许，吕布势力覆灭。',
@@ -190,6 +214,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['qun'],
     importance: 2,
     figures: ['袁绍', '公孙瓒'],
+    attacker: '袁绍',
+    defender: '公孙瓒',
     summary:
       '公孙瓒筑易京高楼自守，袁绍掘地道穿其楼基，纵火焚楼。公孙瓒引火自尽，幽州尽归袁绍。',
     result: '袁绍统一河北四州，成为天下最强诸侯。',
@@ -204,6 +230,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['cao', 'qun'],
     importance: 3,
     figures: ['曹操', '袁绍', '荀攸', '许攸', '张郃'],
+    attacker: '袁绍',
+    defender: '曹操',
     summary:
       '袁绍率十万众南下，曹操以两万兵扼守官渡。许攸来降，曹操亲率轻骑夜袭乌巢，焚袁军粮草，袁军全线崩溃。',
     result: '曹操以少胜多，尽收河北根基；中国北方统一的大势由此奠定。',
@@ -232,6 +260,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['cao', 'qun'],
     importance: 2,
     figures: ['曹操', '审配', '袁尚'],
+    attacker: '曹操',
+    defender: '袁尚 · 审配',
     summary:
       '曹操引漳水灌邺城，城中饿死者过半。审配死守至城破，慷慨就刑。曹操遂以邺为根据地。',
     result: '河北大局底定，曹操营建邺都，此后二十余年以此为政治中心。',
@@ -246,6 +276,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['cao', 'qun'],
     importance: 2,
     figures: ['曹操', '张辽', '郭嘉', '蹋顿'],
+    attacker: '曹操',
+    defender: '乌桓 蹋顿',
     summary:
       '曹操纳郭嘉之谋，轻兵出卢龙塞，长途奔袭乌桓。白狼山下，张辽率虎豹骑冲阵，斩单于蹋顿。',
     result: '乌桓破灭，辽东公孙康斩袁氏兄弟以献，北方彻底平定。',
@@ -261,6 +293,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['cao', 'shu', 'wu'],
     importance: 3,
     figures: ['周瑜', '刘备', '诸葛亮', '黄盖', '曹操'],
+    attacker: '曹操',
+    defender: '孙权 · 刘备',
     summary:
       '曹操率二十余万众顺江东下，孙权命周瑜、程普率三万水军与刘备联军抗曹。黄盖诈降，火船趁东南风突入曹军水寨，连环船尽焚。',
     result: '曹操北还，荆州为孙刘瓜分，三分天下之局自此成形。',
@@ -276,6 +310,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['wu', 'cao'],
     importance: 2,
     figures: ['孙权', '张昭', '蒋济'],
+    attacker: '孙权',
+    defender: '曹操',
     summary:
       '赤壁战后，孙权乘胜攻合肥，久攻不下。曹操遣张喜率骑驰援，孙权误判援军规模，撤围而还。',
     result: '合肥成为此后数十年间吴魏拉锯的东线焦点。',
@@ -290,6 +326,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['shu', 'wu'],
     importance: 2,
     figures: ['刘备', '诸葛亮', '赵云', '黄忠'],
+    attacker: '刘备',
+    defender: '荆南四郡',
     summary:
       '赤壁战后，刘备表刘琦为荆州刺史，南征武陵、长沙、桂阳、零陵四郡，郡守皆降，黄忠、魏延等归附。',
     result: '刘备据有荆南，得以立足，进而谋取益州。',
@@ -305,6 +343,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['cao', 'qun'],
     importance: 2,
     figures: ['曹操', '马超', '韩遂', '许褚'],
+    attacker: '曹操',
+    defender: '马超 · 韩遂',
     summary:
       '马超、韩遂合关中诸将据潼关。曹操佯攻正面，暗遣徐晃渡河，又以抹书离间马韩，一举击破关中联军。',
     result: '关中平定，马超退走凉州，曹操得以专心经营南方与汉中。',
@@ -335,6 +375,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['shu', 'qun'],
     importance: 2,
     figures: ['刘备', '诸葛亮', '马超', '刘璋'],
+    attacker: '刘备',
+    defender: '刘璋',
     summary:
       '刘备围成都数十日，诸葛亮、张飞、赵云溯江西上会师。马超来降，城中震怖，刘璋开城出降。',
     result: '刘备尽有益州，三国鼎立的地缘基础完成。',
@@ -350,6 +392,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['wu', 'cao'],
     importance: 3,
     figures: ['张辽', '李典', '乐进', '孙权'],
+    attacker: '孙权',
+    defender: '张辽（魏）',
     summary:
       '孙权率十万众围合肥，张辽选壮士八百，凌晨突袭吴营，直逼孙权麾盖。孙权退兵时于逍遥津被断桥，仅以身免。',
     result: '张辽名震江东，「张辽止啼」传为典故，合肥始终为吴军难越之关。',
@@ -364,6 +408,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['cao', 'qun'],
     importance: 2,
     figures: ['曹操', '张鲁', '张卫'],
+    attacker: '曹操',
+    defender: '张鲁',
     summary:
       '曹操西征汉中，张鲁封仓库而降。曹操叹「此去成都二百里，得陇不复望蜀」，未乘胜入蜀。',
     result: '汉中归魏，益州北门户洞开，曹刘对峙格局形成。',
@@ -378,6 +424,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['shu', 'cao'],
     importance: 2,
     figures: ['刘备', '曹操', '法正', '张飞', '马超'],
+    attacker: '刘备',
+    defender: '夏侯渊 · 张郃（魏）',
     summary:
       '刘备用黄权、法正之谋，亲率大军攻汉中，与夏侯渊、张郃相持逾年。曹操自长安驰援，双方陈兵险隘。',
     result: '刘备占据汉中，进位汉中王，蜀汉之基业达到极盛。',
@@ -393,6 +441,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['shu', 'cao'],
     importance: 2,
     figures: ['黄忠', '法正', '夏侯渊'],
+    attacker: '刘备 · 黄忠',
+    defender: '夏侯渊（魏）',
     summary:
       '刘备夜袭夏侯渊营，法正举兵，黄忠乘高鼓噪而下，一战斩夏侯渊于定军山。曹军失帅，汉中动摇。',
     result: '曹操被迫退军，汉中全归刘备。',
@@ -407,6 +457,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['shu', 'cao'],
     importance: 3,
     figures: ['关羽', '于禁', '庞德', '曹仁'],
+    attacker: '关羽（蜀）',
+    defender: '曹仁（魏）',
     summary:
       '关羽围襄阳、樊城，汉水暴涨，水淹于禁七军，于禁请降，庞德不屈被杀。关羽威震华夏，曹操一度议迁都以避其锋。',
     result: '两个月后荆州失守，关羽败走麦城，蜀汉由盛转衰。',
@@ -422,6 +474,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['wu', 'shu'],
     importance: 3,
     figures: ['吕蒙', '陆逊', '孙权', '关羽', '糜芳'],
+    attacker: '吕蒙（吴）',
+    defender: '关羽（蜀）',
     summary:
       '吕蒙称病，陆逊代之以骄关羽。吴军白衣摇橹，尽收江边烽火，糜芳、士仁不战而降，江陵陷落。',
     result: '关羽败走麦城被擒杀，孙刘联盟破裂，荆州归吴。',
@@ -465,6 +519,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['wu', 'shu'],
     importance: 3,
     figures: ['陆逊', '刘备', '吴班', '孙桓'],
+    attacker: '刘备',
+    defender: '陆逊（吴）',
     summary:
       '刘备为关羽复仇，亲率大军东征，陆逊坚守不战，待蜀军连营七百里、疲惫松懈，以火攻破其四十余营。',
     result: '蜀军大败，舟船军资尽失，刘备退守白帝城，蜀汉元气大伤。',
@@ -494,6 +550,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['shu'],
     importance: 2,
     figures: ['诸葛亮', '马谡', '孟获', '李恢'],
+    attacker: '诸葛亮',
+    defender: '雍闿 · 孟获',
     summary:
       '雍闿、孟获等南中豪帅叛乱。诸葛亮纳马谡「攻心为上」之策，五月渡泸，七擒孟获而赦之，南中悉平。',
     result: '南中平定，蜀汉获得兵源与物资，北伐后方稳固。',
@@ -523,6 +581,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['wei', 'shu'],
     importance: 3,
     figures: ['马谡', '张郃', '诸葛亮', '王平'],
+    attacker: '诸葛亮（蜀）',
+    defender: '张郃（魏）',
     summary:
       '诸葛亮首次北伐，陇右三郡响应。马谡舍水上山，被张郃断其汲道，大败于街亭。诸葛亮挥泪斩马谡，自贬三等。',
     result: '首次北伐功败垂成，蜀军退回汉中，曹魏西线转危为安。',
@@ -538,6 +598,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['wu', 'wei'],
     importance: 2,
     figures: ['陆逊', '曹休', '朱桓', '贾逵'],
+    attacker: '曹休（魏）',
+    defender: '陆逊（吴）',
     summary:
       '周鲂诈降诱曹休南下，陆逊率九万大军于石亭大破魏军，斩获万余，曹休惭愤而卒。',
     result: '曹魏东线受挫，次年孙权正式称帝。',
@@ -565,6 +627,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['shu', 'wei'],
     importance: 2,
     figures: ['诸葛亮', '司马懿', '张郃'],
+    attacker: '诸葛亮（蜀）',
+    defender: '司马懿（魏）',
     summary:
       '诸葛亮第四次北伐，司马懿据险不战。蜀军粮尽退兵，张郃追击至木门道中伏，中箭身亡。',
     result: '魏军折损名将，司马懿自此愈发坚守不出。',
@@ -579,6 +643,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['shu', 'wei'],
     importance: 3,
     figures: ['诸葛亮', '司马懿', '姜维', '杨仪'],
+    attacker: '诸葛亮（蜀）',
+    defender: '司马懿（魏）',
     summary:
       '诸葛亮出斜谷，屯五丈原，与司马懿隔渭水相持百余日。积劳成疾，八月病逝于军中，遗命秘不发丧，蜀军从容而退。',
     result: '「出师未捷身先死」，蜀汉北伐时代结束，司马懿声望日隆。',
@@ -594,6 +660,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['wei', 'qun'],
     importance: 2,
     figures: ['司马懿', '公孙渊', '毌丘俭'],
+    attacker: '司马懿（魏）',
+    defender: '公孙渊（燕）',
     summary:
       '公孙渊据辽东称燕王。司马懿率四万军远征，声言攻辽隧而暗渡辽水，围襄平，破城斩公孙渊父子。',
     result: '辽东并入魏版图，司马懿军功冠绝朝野。',
@@ -609,6 +677,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['shu', 'wei'],
     importance: 1,
     figures: ['王平', '费祎', '曹爽'],
+    attacker: '曹爽（魏）',
+    defender: '王平（蜀）',
     summary:
       '曹爽率十余万众伐蜀，王平据兴势山固守，费祎率军驰援。魏军粮运不继，死伤甚众，狼狈而还。',
     result: '曹爽威望大损，为日后高平陵之变埋下伏笔。',
@@ -623,6 +693,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['wei'],
     importance: 3,
     figures: ['司马懿', '曹爽', '曹芳', '蒋济'],
+    attacker: '司马懿',
+    defender: '曹爽',
     summary:
       '曹爽兄弟陪魏帝谒高平陵，司马懿称病已久，突起兵闭洛阳城门，据武库、屯洛水浮桥，诱曹爽交权，旋夷其三族。',
     result: '曹魏军政大权尽归司马氏，魏晋更替进入倒计时。',
@@ -637,6 +709,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['wu', 'wei'],
     importance: 2,
     figures: ['诸葛恪', '丁奉', '司马昭'],
+    attacker: '诸葛诞 · 胡遵（魏）',
+    defender: '丁奉（吴）',
     summary:
       '吴于东兴筑堤，诸葛诞、胡遵率魏军来攻。丁奉率三千人脱甲执短兵，冒雪登堤突袭，魏军争渡浮桥，落水死者数万。',
     result: '吴军大胜，诸葛恪声望达到顶峰，然次年新城之败使其失势。',
@@ -651,6 +725,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['wei'],
     importance: 2,
     figures: ['诸葛诞', '司马昭', '文鸯'],
+    attacker: '司马昭（魏）',
+    defender: '诸葛诞',
     summary:
       '诸葛诞据寿春举兵，联结东吴。司马昭挟魏帝亲征，围城半年，吴援屡败，寿春城破，诸葛诞被杀。',
     result: '淮南反抗势力尽除，司马氏代魏的最后障碍被扫平。',
@@ -665,6 +741,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['wei', 'shu'],
     importance: 3,
     figures: ['邓艾', '钟会', '姜维', '刘禅'],
+    attacker: '司马昭（魏）',
+    defender: '刘禅（蜀）',
     summary:
       '司马昭三路伐蜀。钟会攻剑阁受阻，邓艾率军从阴平偷渡七百里无人之地，破江油、绵竹，兵临成都，刘禅出降。',
     result: '蜀汉亡，三国鼎立变为南北对峙，晋代魏之势不可逆转。',
@@ -707,6 +785,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['wu', 'jin'],
     importance: 2,
     figures: ['陆抗', '步阐', '羊祜'],
+    attacker: '陆抗（吴）',
+    defender: '步阐 · 羊祜（晋）',
     summary:
       '步阐据西陵降晋，陆抗急围之，自毁堰坝以断晋军水道，鏖战数月，破晋援军，斩步阐。',
     result: '陆抗以一己之力延续吴祚，然吴国国力已远不及晋。',
@@ -721,6 +801,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['jin', 'wu'],
     importance: 2,
     figures: ['司马炎', '杜预', '王濬', '王浑'],
+    attacker: '晋军 杜预 · 王濬',
+    defender: '吴军',
     summary:
       '晋发兵二十余万，六路并进：杜预出襄阳，王濬率楼船自益州浮江东下，王浑向横江，所向披靡。',
     result: '吴军防线全面崩溃，建业门户洞开。',
@@ -736,6 +818,8 @@ export const EVENTS: HistoricalEvent[] = [
     factions: ['jin', 'wu'],
     importance: 3,
     figures: ['王濬', '孙皓', '杜预', '王浑'],
+    attacker: '王濬（晋）',
+    defender: '孙皓（吴）',
     summary:
       '王濬楼船过三山，吴主孙皓面缚舆榇、衔璧牵羊，出城降于军门。金陵王气，黯然收场。',
     result: '吴亡，汉末以来近百年的分裂局面结束，中国重归统一。',
