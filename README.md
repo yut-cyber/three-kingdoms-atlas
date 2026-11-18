@@ -2,6 +2,8 @@
 
 以一张宣纸古地图，重读公元 184—280 年的三国。
 
+**[在线预览 →](https://yut-cyber.github.io/three-kingdoms-atlas/)**
+
 从黄巾之乱到三家归晋，五十个关键事件按时间轴次第展开：势力版图随年代晕染变化，城池、山川、州界皆为手绘式矢量；点击事件可查看始末、人物与结果，官渡、赤壁、夷陵、北伐、灭蜀、灭吴等战役还会在地图上绘出行军路线。
 
 ## 特性
@@ -24,7 +26,19 @@ npm run preview
 
 ## 部署
 
-仓库已内置 GitHub Actions 工作流 `.github/workflows/deploy.yml`。推送到 `main` 后，在仓库 **Settings → Pages → Source** 选择 **GitHub Actions** 即可自动发布。
+站点通过 GitHub Pages 发布，源为 `gh-pages` 分支（仓库 **Settings → Pages → Source: Deploy from a branch**）。
+
+更新内容后重新构建并发布：
+
+```bash
+GITHUB_ACTIONS=true npm run build   # base 自动变为 /three-kingdoms-atlas/
+git worktree add --detach /tmp/ghp
+cd /tmp/ghp && git checkout --orphan gh-pages && git rm -rf .
+cp -r <项目目录>/dist/. . && touch .nojekyll
+git add -A && git commit -m "deploy" && git push origin gh-pages -f
+```
+
+也可以改用 GitHub Actions 自动部署：在仓库里添加构建 + 发布 Pages 的工作流，并把 Pages 源切换为 **GitHub Actions**。
 
 ## 目录
 
