@@ -1,0 +1,16 @@
+{
+  "name": "three-kingdoms-atlas",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "三国历史地图 · 事件图 | An interactive historical atlas of the Three Kingdoms (AD 184-280)",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "vite": "^6.0.5"
+  }
+}

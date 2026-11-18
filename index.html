@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>三国历史地图 · 公元 184—280</title>
+    <meta
+      name="description"
+      content="以古地图与时间轴重读三国：自黄巾之乱至三家归晋，五十个关键事件、行军路线与势力版图演变。"
+    />
+    <meta name="theme-color" content="#e8dcc4" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <div class="stage">
+        <svg id="atlas" role="img" aria-label="三国历史地图"></svg>
+        <div class="stage-grain" aria-hidden="true"></div>
+        <div class="stage-vignette" aria-hidden="true"></div>
+      </div>
+
+      <header class="masthead">
+        <div class="seal" aria-hidden="true"><span>三</span><span>国</span></div>
+        <div class="masthead-text">
+          <h1>三国历史地图</h1>
+          <p>公元 184 — 280 · 群雄逐鹿 · 三分归晋</p>
+        </div>
+      </header>
+
+      <button class="dock-toggle" id="dock-toggle" aria-label="展开事件索引">索引</button>
+
+      <aside class="dock" id="dock" aria-label="事件索引">
+        <div class="dock-head">
+          <h2>事件索引</h2>
+          <span class="dock-count" id="dock-count"></span>
+        </div>
+        <div class="filters" id="filters"></div>
+        <div class="dock-list" id="event-list"></div>
+      </aside>
+
+      <aside class="detail" id="detail" hidden aria-live="polite"></aside>
+
+      <section class="timeline" aria-label="时间轴">
+        <div class="tl-top">
+          <div class="tl-year">
+            <span class="yr" id="year">184</span>
+            <span class="yr-reign" id="reign">中平元年</span>
+          </div>
+          <div class="tl-actions">
+            <button class="btn-play" id="play" aria-label="播放时间轴">
+              <span class="play-icon" aria-hidden="true"></span>
+              <span class="play-text">播放</span>
+            </button>
+          </div>
+        </div>
+        <div class="tl-chapters" id="chapters"></div>
+        <div class="tl-range-wrap">
+          <input
+            id="range"
+            type="range"
+            min="184"
+            max="280"
+            step="1"
+            value="184"
+            aria-label="年份"
+          />
+        </div>
+        <div class="tl-scale" id="scale" aria-hidden="true"></div>
+      </section>
+
+      <div class="legend" aria-label="图例">
+        <span class="legend-item"><i style="background:#a8823f"></i>汉室</span>
+        <span class="legend-item"><i style="background:#3d6d8c"></i>曹魏</span>
+        <span class="legend-item"><i style="background:#7b5c8a"></i>袁绍</span>
+        <span class="legend-item"><i style="background:#a94a33"></i>蜀汉</span>
+        <span class="legend-item"><i style="background:#457a5b"></i>东吴</span>
+        <span class="legend-item"><i style="background:#8a7a60"></i>群雄</span>
+        <span class="legend-item"><i style="background:#6a5a80"></i>西晋</span>
+      </div>
+
+      <div class="tools" aria-label="地图工具">
+        <button data-act="zoom-in" title="放大" aria-label="放大">＋</button>
+        <button data-act="zoom-out" title="缩小" aria-label="缩小">－</button>
+        <button data-act="reset" title="复位" aria-label="复位" class="wide">复位</button>
+        <button data-act="labels" title="显示/隐藏地名" aria-label="显示或隐藏地名" class="wide on">
+          地名
+        </button>
+      </div>
+
+      <div class="compass" aria-hidden="true">
+        <svg viewBox="0 0 80 80">
+          <circle cx="40" cy="40" r="30" fill="none" stroke="currentColor" stroke-width="1" opacity="0.55" />
+          <circle cx="40" cy="40" r="23" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35" />
+          <path d="M40 10 L45 40 L40 70 L35 40 Z" fill="currentColor" opacity="0.24" />
+          <path d="M40 12 L44 40 L40 38 L36 40 Z" fill="#a63a2a" opacity="0.9" />
+          <text x="40" y="7" text-anchor="middle" font-size="10" fill="currentColor">北</text>
+        </svg>
+      </div>
+
+      <div class="hint" id="hint">拖动时间轴 · 点击事件查看详情 · 滚轮缩放</div>
+      <div class="era-badge" id="era-badge" aria-hidden="true"></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
