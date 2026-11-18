@@ -45,6 +45,7 @@ git add -A && git commit -m "deploy" && git push origin gh-pages -f
 ```
 src/
   data/map.ts       # 疆域、十三州、水系、山脉、城池、版图关键帧
+  data/geo.ts       # 真实经纬度海岸线与州界几何（简化自 jiangshan-map）
   data/events.ts    # 五十个历史事件与战役路线
   lib/projection.ts # 等距圆柱投影（含中纬度经度压缩）
   lib/svg.ts        # SVG 节点构造与柔和曲线辅助
@@ -55,10 +56,11 @@ src/
 
 ## 数据说明
 
-- 州界、海岸线、水系与山脉为示意性简化几何，用于呈现历史地理关系，不作精确测绘依据。
+- 海岸线与州界矢量取自开源项目 [DeanChensj/jiangshan-map](https://github.com/DeanChensj/jiangshan-map) 的 `s_sanguo_a.geojson`（GPL-3.0），按本图视野做了简化、接缝缝合，并将荆州按南北拆分。
+- 水系、山脉为示意性简化几何，用于呈现历史地理关系，不作精确测绘依据。
 - 事件年份、年号与人物依据常见史料整理；部分战役地点取后世通行的定位。
-- 所有数据均以 TypeScript 常量手写维护，欢迎提交 Issue 指正。
+- 所有数据均以 TypeScript 常量维护，欢迎提交 Issue 指正。
 
 ## 许可
 
-代码以 MIT 许可发布；历史文本与自制矢量图形可自由用于学习与非商业展示。
+本项目以 **GPL-3.0** 发布：底图几何衍生自同样采用 GPL-3.0 的 jiangshan-map，需保持同一许可。历史文本与自制矢量图形可自由用于学习与研究。

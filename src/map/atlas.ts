@@ -19,6 +19,11 @@ interface AtlasHandlers {
 
 const CREAM = '#f7eedb';
 
+/** 多段闭合环 → 单条 path（用于海岸线与州界） */
+function ringsToPath(rings: [number, number][][], proj: Projection): string {
+  return rings.map((r) => pointsToPath(r.map((p) => proj.project(p)), true)).join(' ');
+}
+
 /** 中原城池密集，手工调整标签方位避免压字 */
 const LABEL_POS: Record<string, 't' | 'b' | 'l' | 'r'> = {
   洛阳: 't',
@@ -216,7 +221,7 @@ export class AtlasMap {
     defs.append(wash);
 
     const clip = svgEl('clipPath', { id: 'landClip' });
-    clip.append(svgEl('path', { d: pointsToPath(LAND.map((p) => this.proj.project(p)), true) }));
+    clip.append(svgEl('path', { d: ringsToPath(LAND, this.proj) }));
     defs.append(clip);
 
     for (const f of FACTIONS) {
@@ -296,7 +301,7 @@ export class AtlasMap {
   }
 
   private buildLand(): void {
-    const d = pointsToPath(LAND.map((p) => this.proj.project(p)), true);
+    const d = ringsToPath(LAND, this.proj);
     const g = svgEl('g', { class: 'land' });
     g.append(
       svgEl('path', {
@@ -322,7 +327,7 @@ export class AtlasMap {
     const g = svgEl('g', { class: 'territories', 'clip-path': 'url(#landClip)', filter: 'url(#wash)' });
     for (const region of REGIONS) {
       const path = svgEl('path', {
-        d: pointsToPath(region.poly.map((p) => this.proj.project(p)), true),
+        d: ringsToPath(region.rings, this.proj),
         fill: factionColor('han'),
         'fill-opacity': '0.12',
         class: 'region-fill',
@@ -399,7 +404,7 @@ export class AtlasMap {
     for (const region of REGIONS) {
       g.append(
         svgEl('path', {
-          d: pointsToPath(region.poly.map((p) => this.proj.project(p)), true),
+          d: ringsToPath(region.rings, this.proj),
           class: 'region-border',
         }),
       );
@@ -410,7 +415,6 @@ export class AtlasMap {
   private buildRegionLabels(): void {
     const g = svgEl('g', { class: 'region-labels' });
     for (const region of REGIONS) {
-      if (region.id === 'jingbei' || region.id === 'jingnan') continue;
       const [x, y] = this.proj.project(region.label);
       const text = svgEl('text', { x, y, class: 'region-label' });
       [...region.name].forEach((ch, i) => {
