@@ -329,7 +329,7 @@ export class AtlasMap {
       const path = svgEl('path', {
         d: ringsToPath(region.rings, this.proj),
         fill: factionColor('han'),
-        'fill-opacity': '0.12',
+        'fill-opacity': '0.14',
         class: 'region-fill',
       });
       this.regionFills.set(region.id, path);
@@ -516,7 +516,7 @@ export class AtlasMap {
       const owner = era.owners[id];
       if (!owner) continue;
       path.setAttribute('fill', factionColor(owner));
-      path.setAttribute('fill-opacity', owner === 'han' ? '0.13' : '0.24');
+      path.setAttribute('fill-opacity', owner === 'han' ? '0.14' : '0.7');
     }
 
     for (const ev of EVENTS) {

@@ -153,14 +153,13 @@ button {
 
 .region-border {
   fill: none;
-  stroke: #7f6a49;
-  stroke-width: 1.15;
-  opacity: 0.52;
+  stroke: #6f5a3b;
+  stroke-width: 1.3;
+  opacity: 0.68;
   stroke-linejoin: round;
 }
 
 .region-fill {
-  mix-blend-mode: multiply;
   transition: fill 0.9s ease, fill-opacity 0.9s ease;
 }
 

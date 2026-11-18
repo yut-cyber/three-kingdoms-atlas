@@ -232,14 +232,14 @@ export interface FactionMeta {
 }
 
 export const FACTIONS: FactionMeta[] = [
-  { id: 'han', name: '汉室', color: '#a8823f' },
-  { id: 'cao', name: '曹操', color: '#3d6d8c' },
-  { id: 'wei', name: '曹魏', color: '#3d6d8c' },
-  { id: 'shao', name: '袁绍', color: '#7b5c8a' },
-  { id: 'liu', name: '刘氏', color: '#a94a33' },
-  { id: 'shu', name: '蜀汉', color: '#a94a33' },
-  { id: 'sun', name: '孙吴', color: '#457a5b' },
-  { id: 'wu', name: '东吴', color: '#457a5b' },
+  { id: 'han', name: '汉室', color: '#b08d4a' },
+  { id: 'cao', name: '曹操', color: '#46799f' },
+  { id: 'wei', name: '曹魏', color: '#46799f' },
+  { id: 'shao', name: '袁绍', color: '#7d5f8f' },
+  { id: 'liu', name: '刘氏', color: '#b4553a' },
+  { id: 'shu', name: '蜀汉', color: '#b4553a' },
+  { id: 'sun', name: '孙吴', color: '#41825c' },
+  { id: 'wu', name: '东吴', color: '#41825c' },
   { id: 'qun', name: '群雄', color: '#8a7a60' },
   { id: 'jin', name: '西晋', color: '#6a5a80' },
 ];
