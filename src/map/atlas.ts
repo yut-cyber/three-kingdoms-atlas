@@ -502,11 +502,15 @@ export class AtlasMap {
     const g = svgEl('g', { class: 'events' });
     for (const ev of EVENTS) {
       const [x, y] = this.proj.project(eventCoord(ev));
+      // 同年同城多事时错开，避免图钉完全重合
+      const hash = [...ev.id].reduce((a, c) => (a * 31 + c.charCodeAt(0)) % 997, 7);
+      const jx = ((hash % 5) - 2) * 3.4;
+      const jy = (((hash >> 3) % 5) - 2) * 3.4;
       const color = factionColor(ev.factions[0]);
       const node = svgEl('g', {
         class: `event-pin imp-${ev.importance}`,
         'data-id': ev.id,
-        transform: `translate(${x} ${y})`,
+        transform: `translate(${x + jx} ${y + jy})`,
       });
       node.append(
         svgEl('circle', { r: 8.5, class: 'pin-halo', fill: color }),
@@ -550,11 +554,14 @@ export class AtlasMap {
     for (const ev of EVENTS) {
       const node = this.pins.get(ev.id);
       if (!node) continue;
+      const end = ev.endYear ?? ev.year;
       const past = ev.year <= year;
+      const ongoing = past && end > year;
       const near = past && year - ev.year <= 2;
       node.classList.toggle('is-hidden', !past);
       node.classList.toggle('is-near', near);
       node.classList.toggle('is-past', past && !near);
+      node.classList.toggle('is-ongoing', ongoing);
       node.classList.toggle('is-selected', ev.id === this.selectedId);
     }
   }

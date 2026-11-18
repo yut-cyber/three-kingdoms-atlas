@@ -1118,6 +1118,124 @@ input[type="range"]:focus-visible {
   padding-top: 3px;
 }
 
+.war-year {
+  font-size: 10px;
+  color: #a08a68;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+.war-going {
+  font-size: 9.5px;
+  color: #8c4a34;
+  border: 1px solid rgba(140, 74, 52, 0.32);
+  border-radius: 2px;
+  padding: 0 3px;
+  letter-spacing: 0.06em;
+}
+
+/* 事件性质徽标 */
+.kind-badge {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  font-family: var(--serif);
+  font-style: normal;
+  font-size: 9.5px;
+  line-height: 1;
+  border-radius: 2px;
+  color: #fbf8f1;
+  letter-spacing: 0;
+}
+
+.k-battle {
+  background: #a2533d;
+}
+
+.k-politics {
+  background: #4d6a80;
+}
+
+.k-diplomacy {
+  background: #557a5f;
+}
+
+.k-revolt {
+  background: #7b5a72;
+}
+
+.k-project {
+  background: #8c7444;
+}
+
+/* 详情卡：同年并作 */
+.dt-same {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(120, 95, 60, 0.28);
+}
+
+.dt-same b {
+  display: block;
+  font-family: var(--serif);
+  font-size: 11px;
+  font-weight: 500;
+  color: #8a7250;
+  letter-spacing: 0.22em;
+  margin-bottom: 8px;
+}
+
+.dt-same-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.dt-same-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px 3px 5px;
+  font-family: var(--serif);
+  font-size: 11.5px;
+  color: #4a3c28;
+  background: rgba(255, 252, 244, 0.7);
+  border: 1px solid rgba(120, 95, 60, 0.2);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.dt-same-item:hover {
+  background: rgba(255, 250, 238, 0.95);
+  border-color: rgba(160, 110, 62, 0.5);
+}
+
+/* 跨年战事：图钉持续脉冲 */
+.event-pin.is-ongoing .pin-halo {
+  animation: ongoing-pulse 2.4s ease-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes ongoing-pulse {
+  0% {
+    opacity: 0.34;
+    transform: scale(1);
+  }
+  70% {
+    opacity: 0.06;
+    transform: scale(2.1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.1);
+  }
+}
+
 
 .tl-tick {
   position: absolute;

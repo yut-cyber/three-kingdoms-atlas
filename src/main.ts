@@ -1,6 +1,6 @@
 import './style.css';
 import { CHAPTERS, factionColor, factionName } from './data/map';
-import { EVENTS, type EventFaction, type HistoricalEvent } from './data/events';
+import { EVENTS, KIND_LABEL, type EventFaction, type HistoricalEvent } from './data/events';
 import { AtlasMap } from './map/atlas';
 import { cnNumber } from './lib/svg';
 
@@ -131,7 +131,7 @@ function renderList(): void {
     const row = document.createElement('button');
     row.className = 'ev-row';
     row.dataset.id = ev.id;
-    row.innerHTML = `<span class="ev-year">${ev.year}</span><span class="ev-name">${ev.title}</span><span class="ev-dot" style="background:${factionColor(ev.factions[0])}"></span>`;
+    row.innerHTML = `<span class="ev-year">${ev.year}${ev.endYear ? '–' + ev.endYear : ''}</span><span class="ev-name">${ev.title}</span><span class="ev-dot" style="background:${factionColor(ev.factions[0])}"></span>`;
     row.addEventListener('click', () => {
       jumpTo(ev);
     });
@@ -194,6 +194,10 @@ function renderDetail(ev: HistoricalEvent): void {
     .map((name) => `<span class="dt-figure">${name}</span>`)
     .join('');
 
+  const same = activeAt(ev.year)
+    .filter((s) => s.id !== ev.id)
+    .slice(0, 5);
+
   detailEl.innerHTML = `
     <button class="detail-close" aria-label="关闭详情">✕</button>
     <div class="dt-head">
@@ -215,6 +219,16 @@ function renderDetail(ev: HistoricalEvent): void {
     <div class="dt-result"><span>结 果</span><p>${ev.result}</p></div>
     <div class="dt-figures"><b>人物</b>${figures}</div>
     ${
+      same.length
+        ? `<div class="dt-same"><b>同年并作</b><div class="dt-same-list">${same
+            .map(
+              (s) =>
+                `<button class="dt-same-item" data-id="${s.id}">${kindBadge(s)}<span>${s.title}</span></button>`,
+            )
+            .join('')}</div></div>`
+        : ''
+    }
+    ${
       ev.route
         ? `<div class="dt-route-note"><i></i>地图已标注此役行军路线</div>`
         : ''
@@ -224,6 +238,12 @@ function renderDetail(ev: HistoricalEvent): void {
 
   detailEl.hidden = false;
   detailEl.querySelector('.detail-close')?.addEventListener('click', closeDetail);
+  for (const node of detailEl.querySelectorAll<HTMLElement>('.dt-same-item')) {
+    node.addEventListener('click', () => {
+      const id = node.dataset.id;
+      if (id) selectEvent(id);
+    });
+  }
 }
 
 function closeDetail(): void {
@@ -252,34 +272,49 @@ function jumpTo(ev: HistoricalEvent): void {
   }
 }
 
-/* ------------------------------------------------------------------ 本年战事 */
+/* ------------------------------------------------------------------ 本年动态 */
 
-/** 当前年份的出兵/对阵，依据史书所载攻守双方 */
+/** 某一时刻正在发生的事件：包含跨年事件 */
+function activeAt(year: number): HistoricalEvent[] {
+  return EVENTS.filter((ev) => ev.year <= year && (ev.endYear ?? ev.year) >= year).sort(
+    (a, b) => b.importance - a.importance || a.year - b.year,
+  );
+}
+
+function kindBadge(ev: HistoricalEvent): string {
+  const kind = ev.kind ?? 'battle';
+  return `<i class="kind-badge k-${kind}">${KIND_LABEL[kind]}</i>`;
+}
+
+/** 当前年份的多线并进：战事、政变、外交、营建同时罗列 */
 function renderWarStrip(year: number): void {
-  const todays = EVENTS.filter((ev) => ev.year === year);
+  const now = activeAt(year);
   const chips: string[] = [];
 
-  if (todays.length) {
-    for (const ev of todays) {
+  if (now.length) {
+    for (const ev of now) {
+      const span = ev.endYear && ev.endYear > ev.year ? `${ev.year}–${ev.endYear}` : `${ev.year}`;
       const war =
         ev.attacker && ev.defender
           ? `<span class="war-side">${ev.attacker}</span><span class="war-arrow">攻</span><span class="war-side">${ev.defender}</span>`
           : `<span class="war-side">${ev.place}</span>`;
       chips.push(
         `<button class="war-chip" data-id="${ev.id}" title="${ev.place} · ${ev.result}">` +
-          `<span class="war-title">${ev.title}</span>${war}</button>`,
+          kindBadge(ev) +
+          `<span class="war-title">${ev.title}</span>` +
+          `<span class="war-year">${span}</span>` +
+          war +
+          (ev.endYear && ev.endYear > ev.year && year > ev.year
+            ? '<span class="war-going">进行中</span>'
+            : '') +
+          `</button>`,
       );
     }
   } else {
-    const prev = [...EVENTS].reverse().find((ev) => ev.year <= year);
-    chips.push(
-      `<span class="war-none">本年无大战${
-        prev ? ` · 上一役 ${prev.year} 年 ${prev.title}` : ''
-      }</span>`,
-    );
+    chips.push('<span class="war-none">本年史书无大事</span>');
   }
 
-  warStripEl.innerHTML = `<span class="war-label">战事</span><div class="war-body">${chips.join('')}</div>`;
+  warStripEl.innerHTML = `<span class="war-label">本年</span><div class="war-body">${chips.join('')}</div>`;
   for (const node of warStripEl.querySelectorAll<HTMLElement>('.war-chip')) {
     node.addEventListener('click', () => {
       const id = node.dataset.id;
